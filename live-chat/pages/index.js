@@ -44,6 +44,9 @@ export default class Home extends React.Component {
 		});
 	}
 	render() {
+		if(!this.state){
+			return (<>Loading state</>);
+		}
 		if (this.state.loaded===null || this.state.loaded === false) {
 			return (
 				<div className={styles.container}>

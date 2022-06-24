@@ -15,7 +15,7 @@ class MessageCard extends React.Component {
             <>
                 <Grid container maxWidth >
                     <Grid item xs={1} sx={{display: "flex", padding: 1}} justifyContent="center">
-                        <Avatar sx={{bgcolor: this.AvatarColor?this.AvatarColor[this.state.ColorIndex?this.state.ColorIndex:0][500]:"blue"}}>{this.props.sender?this.props.sender.slice(0,1).toUpperCase():""}</Avatar>
+                        <Avatar sx={{bgcolor: this.AvatarColor?this.AvatarColor[(this.state&&this.state.ColorIndex)?this.state.ColorIndex:0][500]:"blue"}}>{this.props.sender?this.props.sender.slice(0,1).toUpperCase():""}</Avatar>
                     </Grid>
                     <Grid item xs={11} sx={{display: "flex", padding:2, fontWeight: 500, fontSize: 18}} justifyContent="left">
                         {this.props.message?this.props.message:""}
