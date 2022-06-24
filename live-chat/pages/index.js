@@ -38,11 +38,11 @@ export default class Home extends React.Component {
 	}
 	constructor(props) {
 		super(props);
-		this.state = {
+		this.setState({
 			username: "",
 			loaded: false,
 			chatMessages: [],
-		}
+		});
 	}
 	render() {
 		if (this.state.loaded === false) {
@@ -91,11 +91,11 @@ export default class Home extends React.Component {
 		window.onbeforeunload = (event) => {
 			this.socket.disconnect();
 		}
-		this.state = {
+		this.setState ({
 			username: "",
 			loaded: false,
 			chatMessages: []
-		}
+		})
 		if (this.socket) {
 			this.socket.disconnect();
 		}
