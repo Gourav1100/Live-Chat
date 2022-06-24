@@ -70,7 +70,10 @@ export default class Home extends React.Component {
 
 				<main>
 					<Grid container maxWidth sx={{padding: {xs: 2,md: 3,}, backgroundColor: "#2d3436", height: "100vh"}}>
-						<Grid item xs={12} height="3%" sx={{display: "flex", color: "White", padding: 2}} justifyContent="right">
+						<Grid item xs={8} height="3%" sx={{display: "flex", padding: 2}} justifyContent="right">
+						<h1><i><span style={{fontWeight: 500, color: "#353b48"}}>LiveChat</span></i></h1>
+						</Grid>
+						<Grid item xs={4} height="3%" sx={{display: "flex", color: "White", padding: 2}} justifyContent="right">
 							<b>Hi, </b><i>{this.state.username}</i>
 						</Grid>
 						<Grid item xs={12} height="87%">
