@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
 import io from "socket.io-client";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default class Home extends React.Component {
 	appendLater = [];
