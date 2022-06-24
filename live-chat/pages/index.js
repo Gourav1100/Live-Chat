@@ -18,10 +18,9 @@ export default class Home extends React.Component {
 			if (!this.state.loaded) {
 				this.appendLater.push(message);
 			}
-			else {
+			else if(!this.message) {
 				let oldmessage = this.state.chatMessages;
 				oldmessage.push(message);
-				console.log(message);
 				this.setState({
 					chatMessages: oldmessage,
 				});

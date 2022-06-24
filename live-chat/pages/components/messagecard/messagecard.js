@@ -13,21 +13,22 @@ class MessageCard extends React.Component {
             ColorIndex = sessionStorage.getItem(this.props.sender);
         }
         else{
-            ColorIndex = (((this.props.sender).length)+Math.floor(Math.random()*19))%18;
-            sessionStorage.setItem(this.props.sender, ColorIndex);
+            ColorIndex = ((this.props.sender?this.props.sender.length:0)+Math.floor(Math.random()*19))%18;
+            if(this.props.sender){
+                sessionStorage.setItem(this.props.sender, ColorIndex);
+            }
         }
-        const Sender = (this.props.sender).slice(0,1).toUpperCase();
         return (
             <>
                 <Grid container maxWidth >
                     <Grid item xs={1} sx={{display: "flex", padding: 1}} justifyContent="center">
-                        <Avatar sx={{bgcolor: AvatarColor[ColorIndex][500]}}>{Sender}</Avatar>
+                        <Avatar sx={{bgcolor: AvatarColor[ColorIndex][500]}}>{this.props.sender?this.props.sender.slice(0,1).toUpperCase():""}</Avatar>
                     </Grid>
                     <Grid item xs={11} sx={{display: "flex", padding:2, fontWeight: 500, fontSize: 18}} justifyContent="left">
-                        {this.props.message}
+                        {this.props.message?this.props.message:""}
                     </Grid>
                     <Grid item xs={12} sx={{display: "flex", padding:1}} justifyContent="center" fontSize={11}>
-                        <b>{this.props.time}</b>
+                        <b>{this.props.time?this.props.time:""}</b>
                     </Grid>
                 </Grid>
             </>
