@@ -10,7 +10,7 @@ import styles from "../styles/Home.module.css";
 export default class Home extends React.Component {
 	appendLater = [];
 	socketInitializer = () => {
-		const socket = io("http://localhost:3001");
+		const socket = io("https://SocketServer.gauravbidhuri.repl.co");
 		socket.on('connect', () => {
 			console.log("connected");
 		});
