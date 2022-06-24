@@ -4,7 +4,7 @@ const socketIO = require("socket.io");
 const http = require("http");
 const dotenv = require("dotenv").config();
 // import PORT
-const PORT = process.env.PORT;
+const PORT = process.env['PORT'];
 // Messages
 var messages = [];
 // set app configurations
@@ -38,13 +38,17 @@ io.on("connection", (socket) => {
                 month = "0" + month;
             }
             let year = dateTime.getFullYear().toString();
-            let hours = dateTime.getHours().toString();
-            if(hours.length === 1){
-                hours = '0' + hours;
-            }
-            let minutes = dateTime.getMinutes().toString();
+            let minutes = ((dateTime.getMinutes()+30)%60).toString();
             if(minutes.length === 1){
                 minutes = '0' + minutes;
+            }
+            let hours = ((dateTime.getHours()+5)%24);
+            if((dateTime.getMinutes()+30)>=60){
+              hours += 1;
+            }
+            hours = hours.toString();
+            if(hours.length === 1){
+                hours = '0' + hours;
             }
             const msg = {
                 messageDate: date+'/'+month+'/'+year,
@@ -62,5 +66,5 @@ io.on("connection", (socket) => {
 });
 
 // start socket server
-console.log(`Server running at http://localhost:${PORT}`)
+console.log(`Server running at PORT ${PORT}`)
 server.listen(PORT);
