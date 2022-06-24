@@ -55,6 +55,7 @@ io.on("connection", (socket) => {
             }
             messages.push(msg);
             socket.broadcast.emit('recieveMessage',msg);
+            socket.emit('recieveMessage', msg);
         } catch(err) {
             console.log(err.message);
         }

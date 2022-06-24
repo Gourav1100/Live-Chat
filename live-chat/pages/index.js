@@ -5,31 +5,41 @@ import io from "socket.io-client";
 import React, { useEffect } from "react";
 
 export default class Home extends React.Component {
-	socket = "this will be a socket";
-	chatMessages = [];
+	appendLater = [];
 	socketInitializer = () => {
 		const socket = io("http://localhost:3001");
 		socket.on('connect', () => {
 			console.log("connected");
 		});
 		socket.on('recieveMessage', (message) => {
-			console.log(message);
-		});
-		socket.on('disconnect', () => {
-			console.log("disconnected");
+			if(!this.state.loaded){
+				this.appendLater.push(message);
+			}
+			else{
+				this.setState({
+					chatMessages: [...messages, message],
+				})
+			}
+
 		});
 		socket.on('helloResponse', (messages) => {
-			this.chatMessages = messages;
+			this.setState({
+				loaded: true,
+				chatMessages: [messages, ...this.appendLater],
+			});
 		})
 		this.socket = socket;
 	}
-	constructor(){
-		super();
-		this.socketInitializer();
+	constructor(props){
+		super(props);
+		this.state = {
+			loaded: false,
+			chatMessages: []
+		}
 	}
 	render(){
-		
-		return (
+		if(this.state.loaded === false){
+			return (
 			<div className={styles.container}>
 				<Head>
 					<title>Live Chat</title>
@@ -37,10 +47,36 @@ export default class Home extends React.Component {
 				</Head>
 
 				<main className={styles.main}>
-					Next @ MUI ready!
+					Loading Messages
+				</main>
+			</div>
+			);
+		}
+		return (
+			<div className={styles.container}>
+				<Head>
+					<title>Live Chat</title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
 
+				<main>
+					{this.state.chatMessages}
 				</main>
 			</div>
 		);
+	}
+	componentDidMount() {
+		window.onbeforeunload = (event) =>{
+			this.socket.disconnect();
+		}
+		this.state = {
+			loaded: false,
+			chatMessages: []
+		}
+		if(this.socket){
+			this.socket.disconnect();
+		}
+		this.socketInitializer();
+		this.socket.emit('hello');
 	}
 }
