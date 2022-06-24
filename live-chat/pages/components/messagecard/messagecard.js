@@ -34,12 +34,12 @@ class MessageCard extends React.Component {
             });
         }
         else{
-            const ColorIndex = ((this.props.sender?this.props.sender.length:0)+Math.floor(Math.random()*19))%18;
+            const Index = ((this.props.sender?this.props.sender.length:0)+Math.floor(Math.random()*19))%18;
             if(this.props.sender){
-                sessionStorage.setItem(this.props.sender, ColorIndex);
+                sessionStorage.setItem(this.props.sender, Index);
             }
             this.setState({
-                ColorIndex: ColorIndex,
+                ColorIndex: Index,
             });
         }
     }
