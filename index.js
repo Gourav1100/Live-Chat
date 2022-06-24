@@ -6,7 +6,7 @@ const dotenv = require("dotenv").config();
 // import PORT
 const PORT = process.env.PORT;
 // Messages
-var messages = ['this is a sample message'];
+var messages = [];
 // set app configurations
 let app = express();
 app.use(require('cors'));
@@ -28,24 +28,23 @@ io.on("connection", (socket) => {
     });
     socket.on('sendMessage',(message)=>{
         try{
-            console.log(message);
             const dateTime = new Date();
-            let date = toString(dateTime.getDate());
+            let date = dateTime.getDate().toString();
             if(date.length === 1){
                 date = "0" + date;
             }
-            let month = toString(dateTime.getMonth() + 1);
+            let month = (dateTime.getMonth() + 1).toString();
             if(month.length === 1){
                 month = "0" + month;
             }
-            let year = toString(dateTime.getFullYear());
-            let hours = toString(dateTime.getHours());
+            let year = dateTime.getFullYear().toString();
+            let hours = dateTime.getHours().toString();
             if(hours.length === 1){
                 hours = '0' + hours;
             }
-            let minutes = toString(dateTime.getMinutes());
+            let minutes = dateTime.getMinutes().toString();
             if(minutes.length === 1){
-                minutes = '0' + hours;
+                minutes = '0' + minutes;
             }
             const msg = {
                 messageDate: date+'/'+month+'/'+year,

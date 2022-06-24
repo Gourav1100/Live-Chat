@@ -1,0 +1,10 @@
+.Container {
+    background-color: #b2bec3;
+    height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.Container::-webkit-scrollbar {
+    display: none;
+}
