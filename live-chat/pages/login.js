@@ -53,7 +53,7 @@ export default class Login extends React.Component {
       );
   }
   componentDidMount(){
-    if( sessionStorage.getItem("UserName")!==null || sessionStorage.getItem("UserName")!=="" ){
+    if( sessionStorage.getItem("UserName")!==null && sessionStorage.getItem("UserName")!=="" ){
       window.location.replace("/");
     }
   }

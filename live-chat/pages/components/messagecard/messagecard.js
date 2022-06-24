@@ -8,7 +8,14 @@ class MessageCard extends React.Component {
     }
     render(){
         const AvatarColor = [deepOrange, pink, purple, red, indigo, deepPurple, cyan, green, blue, grey, amber, lightBlue, lightGreen, teal, lime, brown, yellow, amber];
-        const ColorIndex = (((this.props.sender).length)+Math.floor(Math.random() * 19))%18;
+        let ColorIndex = "";
+        if(sessionStorage.getItem(this.props.sender) !== null){
+            ColorIndex = sessionStorage.getItem(this.props.sender);
+        }
+        else{
+            ColorIndex = (((this.props.sender).length)+Math.floor(Math.random()*19))%18;
+            sessionStorage.setItem(this.props.sender, ColorIndex);
+        }
         const Sender = (this.props.sender).slice(0,1).toUpperCase();
         return (
             <>

@@ -80,11 +80,9 @@ export default class Home extends React.Component {
 							<MessageContainer data = {this.state.chatMessages} />
 						</Grid>
 						<Grid item xs={12} >
-							<SendContainer onSubmit={this.sendMessage} />
+							<SendContainer onSubmit={this.sendMessage}/>
 						</Grid>
 					</Grid>
-
-
 				</main>
 			</div>
 		);
@@ -94,6 +92,7 @@ export default class Home extends React.Component {
 			this.socket.disconnect();
 		}
 		this.state = {
+			username: "",
 			loaded: false,
 			chatMessages: []
 		}
@@ -116,7 +115,7 @@ export default class Home extends React.Component {
 		if(this.socket){
 			if(msg){
 				this.socket.emit("sendMessage", {
-					sender: "admin",
+					sender: this.state.username,
 					msg: msg,
 				})
 			}
