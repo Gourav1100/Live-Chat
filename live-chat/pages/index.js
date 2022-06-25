@@ -10,7 +10,7 @@ import styles from "../styles/Home.module.css";
 export default class Home extends React.Component {
 	appendLater = [];
 	socketInitializer = () => {
-		const socket = io("https://SocketServer.gauravbidhuri.repl.co");
+		const socket = io("https://SocketServer.byakuyanomagan.repl.co");
 		socket.on('connect', () => {
 			console.log("connected");
 		});
@@ -71,14 +71,14 @@ export default class Home extends React.Component {
 				</Head>
 
 				<main>
-					<Grid container maxWidth sx={{padding: {xs: 2,md: 3,}, backgroundColor: "#2d3436", height: "100vh"}}>
-						<Grid item xs={8} height="3%" sx={{display: "flex", padding: 2}} justifyContent="right">
-						<h1><i><span style={{fontWeight: 500, color: "#353b48"}}>LiveChat</span></i></h1>
+					<Grid container maxWidth sx={{padding: {xs: 2,md: 5,}, backgroundColor: "#2d3436", height: "100vh", overflowY: "scroll"}}>
+						<Grid item xs={12} height="5%" md={5} sx={{display: "flex", padding: 1}} justifyContent="center">
+						<h3><i><span style={{fontWeight: 500, color: "#FFFFFF"}}>LiveChat</span></i></h3>
 						</Grid>
-						<Grid item xs={4} height="3%" sx={{display: "flex", color: "White", padding: 2}} justifyContent="right">
-							<b>Hi, </b><i>{this.state.username}</i>
+						<Grid item xs={12} md={7} height="5%" sx={{display: "flex", color: "White", padding: 1}} justifyContent="right">
+							<h3><b>Hi, </b><i>{this.state.username}</i></h3>
 						</Grid>
-						<Grid item xs={12} height="87%">
+						<Grid item xs={12} height="85%">
 							<MessageContainer data = {this.state.chatMessages} />
 						</Grid>
 						<Grid item xs={12} >
