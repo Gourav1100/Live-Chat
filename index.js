@@ -3,10 +3,27 @@ const express = require("express");
 const socketIO = require("socket.io");
 const http = require("http");
 const dotenv = require("dotenv").config();
+const Database = require("@replit/database")
 // import PORT
 const PORT = process.env['PORT'];
-// Messages
-var messages = [];
+// set database
+const db = new Database();
+async function init_Database(){
+  let isDatabaseSet = false;
+  await db.get("messages").then((values)=>{
+    if(values){
+      isDatabaseSet = true;
+    }
+  });
+  if(!isDatabaseSet){
+    console.log("Database not initialized, now initializing...")
+    await db.set("messages",[]).then(()=>console.log("done."));
+  }
+  else{
+    console.log("Database is ready!")
+  }
+  return true;
+}
 // set app configurations
 let app = express();
 app.use(require('cors'));
@@ -14,14 +31,21 @@ let server = http.createServer(app);
 let io = socketIO(server, {
     cors: {
         origin: `*`,
-        methods: ["GET", "POST"],
+        methods: ["HEAD","GET", "POST"],
     }
 });
-// set socket functions
-io.on("connection", (socket) => {
+// set socket functions and server
+async function serve() {
+  await init_Database();
+  await io.on("connection", (socket) => {
     console.log(`New connection from : ${socket.id} ( ${socket.request.connection.remoteAddress} )`);
     socket.on('hello',()=>{
+      var messages = [];
+      db.get("messages").then((values)=>{
+          messages = values;
+      }).then(()=>{
         socket.emit('helloResponse', messages);
+      });
     })
     socket.on('disconnect',() => {
         console.log(`user disconnected : ${socket.id} ( ${socket.request.connection.remoteAddress} )`);
@@ -56,15 +80,23 @@ io.on("connection", (socket) => {
                 messageBy: message.sender,
                 messageData: message.msg,
             }
-            messages.push(msg);
+            let messages = [];
+            db.get("messages").then((value)=>{
+              messages = value;
+            }).then(()=>{
+              messages.push(msg);
+              db.set("messages",messages);
+            })
             socket.broadcast.emit('recieveMessage',msg);
             socket.emit('recieveMessage', msg);
         } catch(err) {
             console.log(err.message);
         }
     })
-});
+  });
+  // start socket server
+  console.log(`Server running at PORT ${PORT}`)
+  server.listen(PORT);
+}
 
-// start socket server
-console.log(`Server running at PORT ${PORT}`)
-server.listen(PORT);
+serve();
