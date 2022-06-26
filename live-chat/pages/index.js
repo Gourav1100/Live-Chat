@@ -37,11 +37,11 @@ export default class Home extends React.Component {
 	}
 	constructor(props) {
 		super(props);
-		this.setState({
+		this.state = {
 			username: "",
 			loaded: false,
 			chatMessages: [],
-		});
+		};
 	}
 	render() {
 		if(!this.state){
@@ -71,7 +71,7 @@ export default class Home extends React.Component {
 				</Head>
 
 				<main>
-					<Grid container maxWidth sx={{padding: {xs: 2,md: 5,}, backgroundColor: "#2d3436", height: "100vh", overflowY: "scroll"}}>
+					<Grid container maxWidth className={styles.container} sx={{padding: {xs: 2,md: 4,}, backgroundColor: "#2d3436", height: "100vh"}}>
 						<Grid item xs={12} height="5%" md={5} sx={{display: "flex", padding: 1}} justifyContent="center">
 						<h3><i><span style={{fontWeight: 500, color: "#FFFFFF"}}>LiveChat</span></i></h3>
 						</Grid>

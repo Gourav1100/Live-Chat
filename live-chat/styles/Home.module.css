@@ -1,5 +1,10 @@
 .container {
-  padding: 0 2rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .main {
