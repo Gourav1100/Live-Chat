@@ -14,7 +14,7 @@ async function friendRequest (req, res)
     var JSONusers = [];
 
     await db.get("users").then((values)=>{
-        JSONusers = values;
+        JSONusers = JSON.parse(values); //making the JSON object
     });
 
     var users = [];
