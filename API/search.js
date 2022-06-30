@@ -1,10 +1,6 @@
 const Database = require("@replit/database");
+// connect to database
 const db = new Database();
-const bodyParser = require("body-parser");
-const express = require("express");
-const app = express();
-
-app.use(bodyParser.urlencoded({extended: true}));
 
 async function search(req, res)
 {
@@ -24,12 +20,12 @@ async function search(req, res)
     var i = 0;
 
     var messageIndices = [];
-    var regex = new RegExp(target, "g"); 
+    var regex = new RegExp(target, "g");
 
     var indices = new Map();
     while(i < messages.length)
     {
-        if(messages[i].match(regex) != null) 
+        if(messages[i].match(regex) != null)
         {
             indices.set(i, []);
         }
