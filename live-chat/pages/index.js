@@ -91,7 +91,7 @@ export default class Home extends React.Component {
 	}
 	componentDidMount() {
 		window.onbeforeunload = (event) => {
-			this.socket.disconnect();
+			this.socket?this.socket.disconnect():"Socket does not exist";
 		}
 		this.setState ({
 			username: "",
@@ -108,7 +108,7 @@ export default class Home extends React.Component {
 			username: sessionStorage.getItem("UserName"),
 		});
 		this.socketInitializer();
-		this.socket.emit('hello');
+		this.socket.emit('hello',this.state.username);
 	}
 
 	sendMessage = (event) => {
